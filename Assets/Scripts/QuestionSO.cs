@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// this is an attribute
+// this is all quite complex as uses both Scriptable Objects AND the weirdness of 
+// the TextMeshPro addon, so yeah, you might need to return to this tutorial
+
+// this literally gives us the ability to right click in the IDE folder and
+// select Create - Quiz Question, which in turn will create a new script
+// with the name 'New Question'.
+// the 'New Question' script contains the serialized fields and getterMethods
 [CreateAssetMenu(menuName = "Quiz Question", fileName = "New Question")]
 
 public class QuestionSO : ScriptableObject
 {
-    // this sets the size of the question area in the IDE
+    // this sets the size of the question area in the IDE.
     [TextArea(2,6)]
 
     // this is serialised so we can enter the question in the IDE
