@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // this is all quite complex as uses both Scriptable Objects AND the weirdness of 
-// the TextMeshPro addon, so yeah, you might need to return to this tutorial
+// the TextMeshPro addon, so yeah, you might need to return to this tutorial    
 
 // this literally gives us the ability to right click in the IDE folder and
 // select Create - Quiz Question, which in turn will create a new script
@@ -20,7 +20,7 @@ public class QuestionSO : ScriptableObject
     [SerializeField] string question = "Enter new question text here";
     // question array serialised so we can maintain quetions in IDE
     [SerializeField] string[] answers = new string[4]; // create an empty array with 4 elements (0-3)
-    [SerializeField] int correctAnswerIndex;
+    [SerializeField] int correctAnswerIndex; // correct answer index stored here
     
     // getter method to return question text even though variable is private
     public string GetQuestion()

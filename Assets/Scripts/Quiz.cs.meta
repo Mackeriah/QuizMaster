@@ -3,7 +3,11 @@ guid: 1515c810a48c0d446a49582f09a93ec2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - questionText: {instanceID: 0}
+  - question: {instanceID: 0}
+  - defaultAnswerButtonSprite: {instanceID: 0}
+  - correctAnswerButtonSprite: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
