@@ -18,6 +18,11 @@ public class Quiz : MonoBehaviour
 
     private void Start() 
     {
+        DisplayQuestion();
+    }
+
+    private void DisplayQuestion()
+    {
         // display question
         questionText.text = question.GetQuestion();
 
@@ -33,7 +38,8 @@ public class Quiz : MonoBehaviour
 
     public void OnAnswerSelected(int index) 
     {
-        Image buttonImage;
+        Image correctButtonImage;
+        Image incorrectButtonImage;
 
         // this is question because we created this variable above
         // if selected button matches the right answer
@@ -42,9 +48,9 @@ public class Quiz : MonoBehaviour
             // change question to a new message
             questionText.text = "Correct!";
             // get Image component for this specific button
-            buttonImage = answerButtons[index].GetComponent<Image>();
+            correctButtonImage = answerButtons[index].GetComponent<Image>();            
             // change it's sprite from default to correct (stored in this Script in IDE)
-            buttonImage.sprite = correctAnswerButtonSprite;
+            correctButtonImage.sprite = correctAnswerButtonSprite;            
         }
         else
         {
@@ -52,10 +58,18 @@ public class Quiz : MonoBehaviour
             correctAnswerIndex = question.GetCorrectAnswerIndex();
             // replace question with correct answer
             string correctAnswer = question.GetAnswer(correctAnswerIndex);
+            // display apology message
             questionText.text = "Sorry, the correct answer was\n " + correctAnswer;
-            buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();            
-            buttonImage.sprite = correctAnswerButtonSprite;
-            
+            // get image of correct answer button
+            correctButtonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();            
+            // change sprite of correct answer button
+            correctButtonImage.sprite = correctAnswerButtonSprite;
+            // change colour of incorrect button clicked
+            incorrectButtonImage = answerButtons[index].GetComponent<Image>();
+            incorrectButtonImage.color = new Color32(255, 74, 74, 255);
+            // get button
+            Button buttonInteractable = answerButtons[correctAnswerIndex].GetComponent<Button>();
+            buttonInteractable.interactable = false;         
         }
 
     }
