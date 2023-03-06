@@ -21,10 +21,19 @@ public class Quiz : MonoBehaviour
         DisplayQuestion();
     }
 
+    void Update() 
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            GetNextQuestion();
+        }        
+    }
+
     void GetNextQuestion()
     {
         SetButtonState(true); // ensure buttons are enabled
-        DisplayQuestion();
+        SetDefaultButtonSprites();
+        DisplayQuestion();        
     }
 
     void DisplayQuestion()
@@ -38,7 +47,7 @@ public class Quiz : MonoBehaviour
             // there's only one (the button text) so this is store in buttonText variable
             TextMeshProUGUI buttonText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
             //display answer
-            buttonText.text = question.GetAnswer(i);
+            buttonText.text = question.GetAnswer(i);            
         }
     }
 
@@ -49,14 +58,25 @@ public class Quiz : MonoBehaviour
             // get answer button component
             Button button = answerButtons[i].GetComponent<Button>();
             // set this to whatever state we've passed in
-            button.interactable = state;
+            button.interactable = state;            
+        }
+    }
+
+    // reset sprites and colours
+    void SetDefaultButtonSprites()
+    {
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            Image buttonImage = answerButtons[i].GetComponent<Image>();
+            buttonImage.sprite = defaultAnswerButtonSprite;
+            Image initialButtonImage = answerButtons[i].GetComponent<Image>();
+            initialButtonImage.color = new Color32(255, 255, 255, 255);
         }
     }
 
     public void OnAnswerSelected(int index) 
     {
-        Image correctButtonImage;
-        Image incorrectButtonImage;
+        Image correctButtonImage;        
 
         // this is question because we created this variable above
         // if selected button matches the right answer
@@ -78,15 +98,13 @@ public class Quiz : MonoBehaviour
             // display apology message
             questionText.text = "Sorry, the correct answer was\n " + correctAnswer;
             // get image of correct answer button
-            correctButtonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();            
+            correctButtonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();           
             // change sprite of correct answer button
             correctButtonImage.sprite = correctAnswerButtonSprite;
             // change colour of incorrect button clicked
-            incorrectButtonImage = answerButtons[index].GetComponent<Image>();
-            incorrectButtonImage.color = new Color32(255, 74, 74, 255);
-            // get button
-            // Button buttonInteractable = answerButtons[correctAnswerIndex].GetComponent<Button>();
-            // buttonInteractable.interactable = false;         
+            Image incorrectButtonImage = answerButtons[index].GetComponent<Image>();
+            // change incorrect button colour
+            incorrectButtonImage.color = new Color32(255, 74, 74, 255);        
         }
         SetButtonState(false); // prevent buttons from being clicked
 
