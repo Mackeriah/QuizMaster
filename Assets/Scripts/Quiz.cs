@@ -16,12 +16,18 @@ public class Quiz : MonoBehaviour
     [SerializeField] Sprite defaultAnswerButtonSprite;
     [SerializeField] Sprite correctAnswerButtonSprite;
 
-    private void Start() 
+    void Start() 
     {
         DisplayQuestion();
     }
 
-    private void DisplayQuestion()
+    void GetNextQuestion()
+    {
+        SetButtonState(true); // ensure buttons are enabled
+        DisplayQuestion();
+    }
+
+    void DisplayQuestion()
     {
         // display question
         questionText.text = question.GetQuestion();
@@ -33,6 +39,17 @@ public class Quiz : MonoBehaviour
             TextMeshProUGUI buttonText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
             //display answer
             buttonText.text = question.GetAnswer(i);
+        }
+    }
+
+    void SetButtonState(bool state)
+    {
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            // get answer button component
+            Button button = answerButtons[i].GetComponent<Button>();
+            // set this to whatever state we've passed in
+            button.interactable = state;
         }
     }
 
@@ -68,9 +85,10 @@ public class Quiz : MonoBehaviour
             incorrectButtonImage = answerButtons[index].GetComponent<Image>();
             incorrectButtonImage.color = new Color32(255, 74, 74, 255);
             // get button
-            Button buttonInteractable = answerButtons[correctAnswerIndex].GetComponent<Button>();
-            buttonInteractable.interactable = false;         
+            // Button buttonInteractable = answerButtons[correctAnswerIndex].GetComponent<Button>();
+            // buttonInteractable.interactable = false;         
         }
+        SetButtonState(false); // prevent buttons from being clicked
 
     }
 
